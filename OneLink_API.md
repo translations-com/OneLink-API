@@ -73,7 +73,7 @@ The proxy server sits in between the end-user’s browser and the client’s ser
 
 4.  The OL server “localizes” the file.
 
-5.  <img src="./media/image5.png" width="516" height="224" />The OL server responds to the browser with the localized version of the requested file.
+5.  <img src="./OL-Proxy-Workflow.png" width="516" height="224" />The OL server responds to the browser with the localized version of the requested file.
 
 Note that steps 3 through 5 are not “seen” by the end-user’s browser. Rather, the browser is requesting a file from the OL server and the OL server is responding with that file just as any other server would. The magic of OneLink is that the localization steps happen with almost zero negative effect on performance for the end-user.
 
