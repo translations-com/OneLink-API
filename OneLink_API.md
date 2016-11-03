@@ -83,37 +83,37 @@ Note that steps 3 through 5 are not “seen” by the end-user’s browser. Rath
 
 Your application code sends POST requests to the OneLink<sup>®</sup> API using parameters that are specified on the next page. Note that you will need to understand where the OneLink API server lives. If the OneLink API server is installed on your LAN, the request may look like this:
 
-**https://10.20.30.40/OneLinkOTX/page/requesting/data.html **
+``https://10.20.30.40/OneLinkOTX/page/requesting/data.html``
 
 If the OneLink API server is installed in one of our colocation facilities, the request may look like this:
 
-**https://es.acme.com/OneLinkOTX/page/requesting/data.html **
+``https://es.acme.com/OneLinkOTX/page/requesting/data.html``
 
 Using your application code, you should create a POST request with the following request headers and post parameters:
 
 ***Required Request Headers:***
 
-**Host:** *your-virtual-host* (see below)
-
-**Content-Type:** application/x-www-form-url-encoded (all POST requests have this header)
+> **Host:** *your-virtual-host* (see below)
+> 
+> **Content-Type:** application/x-www-form-url-encoded (all POST requests have this header)
 
 ***Required Post Parameters:***
 
-**otx\_account**=account number, account password
-
-**otx\_mimetype**=(see below)
-
-**otx\_service**=(see below)
-
-**otx\_content**=(see below)
+> **otx\_account**=account number, account password
+> 
+> **otx\_mimetype**=(see below)
+> 
+> **otx\_service**=(see below)
+> 
+> **otx\_content**=(see below)
 
 POST Parameters
 ---------------
 
-**otx\_account:** This contains the account number and password for the OneLink API.
-
-**otx\_service:** *Optional.* *Defaults to “tx”*. Values are as follows:
-
+> **otx\_account:** This contains the account number and password for the OneLink API.
+> 
+> **otx\_service:** *Optional.* *Defaults to “tx”*. Values are as follows:
+> 
 > **tx:** Performs normal translation as defined for the virtual host.
 >
 > **smt:** Performs SMT (simple machine translation).
@@ -126,7 +126,7 @@ POST Parameters
 >
 > **parse:** Parses and outputs segmentation and token logic (used primarily for debugging)
 
-**otx\_mimetype:** The mime-type of the content being uploaded. This tells the OneLink<sup>®</sup> Proxy how to interpret the incoming information. The only supported types as of right now are:
+> **otx\_mimetype:** The mime-type of the content being uploaded. This tells the OneLink<sup>®</sup> Proxy how to interpret the incoming information. The only supported types as of right now are:
 
 > **text/html**: This page will be parsed as a normal HTML page by the rules defined for the virtual host.
 >
@@ -178,14 +178,17 @@ The following response headers are included whenever the request includes **X-On
 
 **Sent to the OneLink API:**
 
+```
 Host: es.acme.com
 
 Content-Type: application/x-www-form-urlencoded
 
 Content-Length: 123
+```
 
 **Received from the OneLink API:**
 
+```
 HTTP/1.1 200 OK
 
 Content-Type: text/plain
@@ -195,6 +198,7 @@ Content-Length: 12
 Encoding: utf8
 
 Hola Mundial
+```
 
 For example:
 ```
@@ -207,6 +211,7 @@ The following examples show you some basic examples of the OneLink API in Python
 
 Python example:
 ---------------
+
 ```
 \#!/usr/bin/env python
 \# -\*- coding: utf-8 -\*-
@@ -246,84 +251,18 @@ python ./onelink.api.example.py
 **Java example goes here**
 
 ## PHP example:
-------------
+
+See [example.php](./example.php)
+
 ```
-&lt;?php
+The expected result is: 
 
-if($argc&lt;2){
-
-                echo "\\n usage: php getOTX.php content service\\n";
-
-               exit;
-
-}
-
-// Setup Defaults
-
-$otx\_account = 'otx,otxpass';
-
-$otx\_mimetype = "text/html";
-
-// Fill from cli
-
-$otx\_content =                 $argv\[1\];
-
-$otx\_service = ( isset($argv\[2\])) ? $argv\[2\] : "smt";
-
-// Setup data for http query
-
-$url = 'https://es-otx.onelink-poc.com/OneLinkOTX/';
-
-$data = array(
-
-                                'otx\_account' =&gt; $otx\_account
-
-                                ,'otx\_service' =&gt; $otx\_service
-
-                                ,'otx\_mimetype' =&gt; $otx\_mimetype
-
-                                ,'otx\_content' =&gt; $otx\_content
-
-                                                               
-
-                );
-
-// Setup stream options
-
-$options = array(
-
-    'http' =&gt; array(
-
-        'header'  =&gt; "Content-type: application/x-www-form-urlencoded\\r\\n",
-
-        'method'  =&gt; 'POST',
-
-        'content' =&gt; http\_build\_query($data),
-
-    ),
-
-);
-
-// Create stream , get contents
-
-$context  = stream\_context\_create($options);
-
-$result = file\_get\_contents($url, false, $context);
-
-// Results
-
-echo "\\n    content:" . $otx\_content;
-
-echo "\\n translated:" . $result ."\\n";
-
-?&gt;
 ```
-The following example shows the output from the PHP sample:
+$ php example.php "<p>I am going for a long walk</p>" tx
+ content:<p>I am going for a long walk</p>
+	 translated:<p>Voy para una caminata larga</p>
+	 
 ```
-php getOTX.php "&lt;p&gt;I am going for a long walk&lt;/p&gt;" tx
-```
-content:&lt;p&gt;I am going for a long walk&lt;/p&gt;
-translated:&lt;p&gt;Voy para una caminata larga&lt;/p&gt;
 
 # Appendix: OneLink API Testing
 
@@ -353,18 +292,26 @@ For testing we have added a global ‘otxtest’ tag to the OneLink translation 
 
 For example, the command passes JSON with 3 elements to the server. Because these are contained within an otxtest element it will translate:
 
-> curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx\_mimetype=text/json&otx\_account=otx,otxpass&otx\_service=tx&otx\_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog", data3:"in the yard" }}' ; echo
+```
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx\_mimetype=text/json&otx\_account=otx,otxpass&otx\_service=tx&otx\_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog", data3:"in the yard" }}' ; echo
+```
 
 This is the expected response:
 
-> { "otxtest": { "data1": "yo ver la gato", "data2": "persiguiendo la perro", "data3": "en la patio" } }
+```
+{ "otxtest": { "data1": "yo ver la gato", "data2": "persiguiendo la perro", "data3": "en la patio" } }
+```
 
 The same is true for XML (Note modified mime type)
 
-> curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com /OneLinkOTX/' --data 'otx\_mimetype=text/xml&otx\_account=otx,otxpass&otx\_service=tx&otx\_content=&lt;otxtest&gt;&lt;foo&gt;You have to learn the rules of the game.&lt;/foo&gt;&lt;bar&gt;And then you have to play better than anyone else.&lt;/bar&gt;&lt;/otxtest&gt;' ; echo
+```
+ curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com /OneLinkOTX/' --data 'otx\_mimetype=text/xml&otx\_account=otx,otxpass&otx\_service=tx&otx\_content=&lt;otxtest&gt;&lt;foo&gt;You have to learn the rules of the game.&lt;/foo&gt;&lt;bar&gt;And then you have to play better than anyone else.&lt;/bar&gt;&lt;/otxtest&gt;' ; echo
+```
 
 This is the expected result:
 
-> &lt;otxtest&gt;&lt;foo&gt;Usted tener a aprender la normas de la juego.&lt;/foo&gt;
-> &lt;bar&gt;Y entonces usted tener a jugar mejor de nadie mÃ¡s.&lt;/bar&gt;
-> &lt;/otxtest&gt;
+```
+&lt;otxtest&gt;&lt;foo&gt;Usted tener a aprender la normas de la juego.&lt;/foo&gt;
+&lt;bar&gt;Y entonces usted tener a jugar mejor de nadie mÃ¡s.&lt;/bar&gt;
+&lt;/otxtest&gt;
+```
