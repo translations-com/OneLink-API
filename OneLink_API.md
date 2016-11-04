@@ -73,7 +73,9 @@ The proxy server sits in between the end-user’s browser and the client’s ser
 
 5. The OL server responds to the browser with the localized version of the requested file.
 
+
 ![OneLink Proxy Workflow](./OL-Proxy-Workflow.png)
+
 
 Note that steps 3 through 5 are not “seen” by the end-user’s browser. Rather, the browser is requesting a file from the OL server and the OL server is responding with that file just as any other server would. The magic of OneLink is that the localization steps happen with almost zero negative effect on performance for the end-user.
 
@@ -241,9 +243,8 @@ The expected result is:
 
 ```
 $ php example.php "<p>I am going for a long walk</p>" tx
- content:<p>I am going for a long walk</p>
-	 translated:<p>Voy para una caminata larga</p>
-	 
+   content:<p>I am going for a long walk</p>
+translated:<p>Voy para una caminata larga</p>	 
 ```
 
 # Appendix: OneLink API Testing
@@ -252,8 +253,8 @@ We have a OneLink API service you can test with Spanish. It uses Machine Transla
 
 The domain is: [es-otx.onelink-poc.com](es-otx.onelink-poc.com)
 
-The username is: otx
-and password is: otxpass
+The username is: `otx`
+and password is: `otxpass`
 
 Rather than make separate calls for each segment you want to translate you can send the server JSON or XML.
 
@@ -277,17 +278,14 @@ For example, the command passes JSON with 3 elements to the server. Because thes
 ```
 curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx\_mimetype=text/json&otx\_account=otx,otxpass&otx\_service=tx&otx\_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog", data3:"in the yard" }}' ; echo
 ```
-
 This is the expected response:
-
 ```
 { "otxtest": { "data1": "yo ver la gato", "data2": "persiguiendo la perro", "data3": "en la patio" } }
 ```
-
 The same is true for XML (Note modified mime type)
 
 ```
- curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com /OneLinkOTX/' --data 'otx\_mimetype=text/xml&otx\_account=otx,otxpass&otx\_service=tx&otx\_content=<otxtest><foo>You have to learn the rules of the game.</foo><bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com /OneLinkOTX/' --data 'otx\_mimetype=text/xml&otx\_account=otx,otxpass&otx\_service=tx&otx\_content=<otxtest><foo>You have to learn the rules of the game.</foo><bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
 ```
 
 This is the expected result:
