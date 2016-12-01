@@ -33,11 +33,11 @@ Translation needs are very diverse within most companies. Requirements may come 
 
 ### Examples:
 
--   You can translate selected content that can then be merged with your customers\' personal data. The customer data never leaves your site.
+-   You can translate selected content that can then be merged with your customers' personal data. The customer data never leaves your site.
 
--   You can translate internal emails
+-   You can translate internal emails.
 
--   Use case 3
+-   Check on service level agreement (SLAs).
 
 -   Use case 4
 
