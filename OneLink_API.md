@@ -4,7 +4,7 @@ This document illustrates a feature of the OneLink® Platform called the OneLink
 
 # What is the OneLink API?
 
-The OneLink® Platform can be configured as a proxy service to provide a translated version of a website or invoked programmatically as an API to provide translations into several receiving applications, such as email. You can use each service independently or together. 
+The OneLink Platform can be configured as a proxy service to provide a translated version of a website or invoked programmatically as an API to provide translations into several receiving applications, such as email. You can use each service independently or together. 
 
 This document shows how the API can be used to return translations into documents, email, and other applications. Most clients of the OneLink® Platform use it to serve a proxy version of their website.
 
