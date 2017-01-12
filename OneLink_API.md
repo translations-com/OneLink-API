@@ -1,6 +1,6 @@
 # About this guide
 
-This document illustrates a feature of the OneLink® Platform called the OneLink API. It enables real-time querying of Translation Memory stores to feed other requirements — such as email content, browsers, and other third-party products and data stores that may require translation. This document is available on GitHub at <TBD>
+This document illustrates a feature of the OneLink® Platform called the OneLink API. It enables real-time querying of Translation Memory stores to feed other requirements — such as email content, browsers, and other third-party products and data stores that may require translation. This document is available on GitHub at TBD
 
 # What is the OneLink API?
 
@@ -42,6 +42,8 @@ Translation needs are very diverse within most companies. Requirements may come 
 -   Build a translation interface to a custom CMS. 
 
 -   Submit pre-published pages to the API. The pages are translated completely. When publishing the English content, the translated sites will  already have the content. 
+
+-   Capture content for translation.
 
 ##  Solution
 
