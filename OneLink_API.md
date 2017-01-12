@@ -37,9 +37,11 @@ Translation needs are very diverse within most companies. Requirements may come 
 
 -   You can translate internal emails.
 
--   Check on service level agreement (SLAs).
+-   Use the API to translate selected portions of a page (instead of running the whole website through the OneLink proxy service). 
 
--   Use case 4
+-   Build a translation interface to a custom CMS. 
+
+-   Submit pre-published pages to the API. The pages are translated completely. When publishing the English content, the translated sites will  already have the content. 
 
 ##  Solution
 
@@ -195,7 +197,9 @@ The following examples show you some basic examples of the OneLink API in Python
 
 Python example:
 ---------------
-
+```include
+./example.py
+```
 See [example.py](./example.py)
 
 The expected result is: 
@@ -206,9 +210,12 @@ python ./onelink.api.example.py
 :: Content for translation : Acme Corp has the largest selection of dynamite and anvils on the market.
 :: Received translated content: Acme Corp tiene la selección más grande de la dinamita y de los yunques en el mercado.
 ```
+
+<!--
 ## Java Example:
 
 **Java example goes here**
+-->
 
 ## PHP example:
 
