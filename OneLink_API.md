@@ -43,7 +43,7 @@ Translation needs are very diverse within most companies. Requirements may come 
 
 -   Submit pre-published pages to the API. The pages are translated completely. When publishing the English content, the translated sites will  already have the content. 
 
--   Capture content for translation.
+-   Capture unpublished content for translation by submitting it to the API.
 
 ##  Solution
 
