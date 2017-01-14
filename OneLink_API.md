@@ -177,7 +177,7 @@ The following response headers are included whenever the request includes **X-On
 ```
 Host: es.acme.com
 Content-Type: application/x-www-form-urlencoded
-Content-Length: 123
+Content-Length: 123 ***THiS DOES NOT SEEM RIGHT*** WE DON'T SEND THIS AND THERE IS NO Hello World TEXT EVEN THOUGH YOU CAN SEE THE TRANSLATION BELOW.
 ```
 **Received from the OneLink API:**
 
