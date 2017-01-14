@@ -269,7 +269,7 @@ This is the expected response:
 The same is true for XML (Note modified mime type)
 
 ```
-curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com /OneLinkOTX/' --data 'otx\_mimetype=text/xml&otx\_account=otx,otxpass&otx\_service=tx&otx\_content=<otxtest><foo>You have to learn the rules of the game.</foo><bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx\_mimetype=text/xml&otx\_account=otx,otxpass&otx\_service=tx&otx\_content=<otxtest><foo>You have to learn the rules of the game.</foo><bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
 ```
 
 This is the expected result:
