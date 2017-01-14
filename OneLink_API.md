@@ -1,12 +1,12 @@
 # About this guide
 
-This document illustrates a feature of the OneLink® Platform called the OneLink API. It enables real-time querying of Translation Memory stores to feed other requirements — such as email content, browsers, and other third-party products and data stores that may require translation. This document is available on GitHub at ***TBD***
+This document describes OneLink® API. The API enables real-time querying of Translation Memory content so you can use it for other purposes — such as email content, browsers, and third-party products or data that may require translation. This document is available on GitHub at ***TBD***
 
 # What is the OneLink API?
 
-The OneLink Platform can be configured as a proxy service to provide a translated version of a website or invoked programmatically as an API to provide translations into several receiving applications, such as email. You can use each service independently or together. 
+The OneLink Platform can be configured as a proxy service to provide a translated version of a website or invoked programmatically as an API to provide translations. You can use these services independently or together. 
 
-This document shows how the API can be used to return translations into documents, email, and other applications. Most clients of the OneLink® Platform use it to serve a proxy version of their website.
+This document shows how the API can be used to return translations of submitted content.
 
 For example,
 
