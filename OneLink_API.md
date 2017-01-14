@@ -188,7 +188,7 @@ Content-Length: 12
 Encoding: utf8
 Hola Mundial
 ```
-For example:
+For example: ***WE SHOULD USE THE TEST SERVER MENTIONED BELOW SO THIS REALLY WORKS***
 ```
 % curl -k --header "host: es.acme.com" --request post
 'https://es.acme.com/OneLinkOTX/wfonline/' --data "otx\_mimetype=text/html&otx\_account=acme&otx\_service=smt&otx\_content=<html><head></head><body>Hello World</body></html>"
@@ -233,7 +233,7 @@ translated:<p>Voy para una caminata larga</p>
 ```
 # Appendix: OneLink API Testing
 
-We have a OneLink API service you can test with Spanish. It uses Machine Translation so be cautioned that the translation is not reliable and is used only for testing purposes.
+There is a OneLink API service you can test with Spanish. It uses Machine Translation so be cautioned that the translation is not reliable and is used only for testing purposes.
 
 The domain is: [es-otx.onelink-poc.com](es-otx.onelink-poc.com)
 
