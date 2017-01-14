@@ -20,16 +20,16 @@ For example,
 
 5.  The OneLink® Platform composes the Spanish page, and returns it to the origin server.
 
-6.  The origin server renders the Spanish page in the browser.
+6.  The origin server returns the Spanish page back to the browser that requsted it.
 
-This model achieves anonymity from the client-server relationship since it is not connected to the exchange between browser and server. The server itself appears in every way as the source of the translated site. When content is requested from the server it is served directly to the client’s browser with no interim contact with a OneLink® proxy. Few circumstances mandate implementation of this sort of architecture, but it is available to clients who wish to isolate OneLink® completely from that dialog. Those who implement this alternative are required to host the OneLink® Platform directly inside their IT architecture, which entails a deeper involvement of internal IT resources than may be desirable for many clients.
+This model achieves anonymity from the typical proxy relationship since it is not connected to the exchange between browser and server. The server itself appears in every way as the source of the translated site. When content is requested from the server it is served directly to the client’s browser with no interim contact with a OneLink® proxy. Of course, to implement this you would host the OneLink® Platform directly inside your IT architecture. This is just one example, and you can use the API without hosting the platform yourself.
 
 # Getting Started
 
 
 ## Why would you use the OneLink API?
 
-Translation needs are very diverse within most companies. Requirements may come from a variety of sources and go to various target applications. Typically, clients’ website content and external applications like email are considered separately, yet both require translated content to function in a global environment. Website content, once translated, seems to span a company’s entire ERP cycle from marketing and sales through to training and support.
+Translation needs are diverse within most companies. Requirements may come from a variety of sources and go to various target applications. Typically, clients’ website content and external applications like email are considered separately, yet both require translated content to function in a global environment. Website content, once translated, seems to span a company’s entire ERP cycle from marketing and sales through to training and support.
 
 ### Examples:
 
@@ -41,13 +41,13 @@ Translation needs are very diverse within most companies. Requirements may come 
 
 -   Build a translation interface to a custom CMS. 
 
--   Submit pre-published pages to the API. The pages are translated completely. When publishing the English content, the translated sites will  already have the content. 
+-   Submit pre-published pages to the API. The pages are translated completely. When publishing the English content (and using the OneLink proxy), the target language sites will already have the translated content. 
 
 -   Capture unpublished content for translation by submitting it to the API.
 
 ##  Solution
 
-In response to these multiple requirements, Translations.com offers a variety of technologies. Translations.com’s OneLink® offers both proxy-based website translation and an API for general purpose real-time translation. Translations can be sourced through the API and delivered either to a website or to any number of external applications, if that content has been captured, translated, and resides in Translation Memory. OneLink® API is a function of the OneLink® Platform which accepts programmatic requests for translation through an API. The OneLink® Platform is required to implement the API. There are various flexible ways to set up that platform to fulfill our clients’ needs, requirements, and goals.
+Translations.com’s OneLink® offers both proxy-based website translation and an API for general purpose real-time translation. Translations can be sourced through the API and delivered either to a website or to any number of external applications, if that content has been captured, translated, and resides in Translation Memory. The OneLink® Platform is required to implement the API. There are various flexible ways to set up that platform to fulfill our clients’ needs, requirements, and goals.
 
 The OneLink® API leverages the following components of the OneLink® Platform:
 
