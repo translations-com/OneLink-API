@@ -31,7 +31,7 @@ This model achieves anonymity from the typical proxy relationship since it is no
 
 Translation needs are diverse within most companies. Requirements may come from a variety of sources and go to various target applications. Typically, clients’ website content and external applications like email are considered separately, yet both require translated content to function in a global environment. Website content, once translated, seems to span a company’s entire ERP cycle from marketing and sales through to training and support.
 
-### Examples:
+### Example:
 
 -   You can translate selected content that can then be merged with your customers' personal data. The customer data never leaves your site.
 
