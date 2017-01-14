@@ -31,7 +31,7 @@ This model achieves anonymity from the typical proxy relationship since it is no
 
 Translation needs are diverse within most companies. Requirements may come from a variety of sources and go to various target applications. Typically, clients’ website content and external applications like email are considered separately, yet both require translated content to function in a global environment. Website content, once translated, seems to span a company’s entire ERP cycle from marketing and sales through to training and support.
 
-### Example:
+### Examples:
 
 -   You can translate selected content that can then be merged with your customers' personal data. The customer data never leaves your site.
 
@@ -63,7 +63,7 @@ The OneLink® API leverages the following components of the OneLink® Platform:
 
 ## About the OneLink Proxy
 
-The OneLink Proxy is a special proxy that localizes websites virtually. A traditional localization configuration requires that you maintain your original web content and synchronize changes with the localized content (in multiple languages). The OneLink proxy simplifies this process by applying translation on-the-fly.
+The OneLink Proxy is a special proxy that localizes websites virtually. A traditional localization process requires that you maintain your original web content and synchronize changes with the localized content (in multiple languages). The OneLink proxy simplifies this process by applying translation on-the-fly.
 
 The proxy server sits in between the end-user’s browser and the client’s servers.
 
@@ -75,13 +75,13 @@ The proxy server sits in between the end-user’s browser and the client’s ser
 
 4.  The OL server “localizes” the file.
 
-5. The OL server responds to the browser with the localized version of the requested file.
+5.  The OL server responds to the browser with the localized version of the requested file.
 
 
 ![OneLink Proxy Workflow](./OL-Proxy-Workflow.png)
 
 
-Note that steps 3 through 5 are not “seen” by the end-user’s browser. Rather, the browser is requesting a file from the OL server and the OL server is responding with that file just as any other server would. The magic of OneLink is that the localization steps happen with almost zero negative effect on performance for the end-user.
+Note that steps 3 through 5 are not “seen” by the end-user’s browser. Rather, the browser is requesting a file from the OL server and the OL server is responding with that file just as any other server would. OneLink steps happen with almost zero negative effect on performance for the end-user.
 
 # OneLink API Implementation
 
