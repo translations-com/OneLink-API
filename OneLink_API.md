@@ -105,9 +105,9 @@ Using your application code, you should create a POST request with the following
 
 ### Required Post Parameters
 
-> **otx\_account**=account number, account password. This contains the account number and password for the OneLink API.
+> **otx_account**=account number, account password. This contains the account number and password for the OneLink API.
 > 
-> **otx\_mimetype:** The mime-type of the content being uploaded. This tells the OneLink® Proxy how to interpret the incoming information. The only supported types as of right now are the following: 
+> **otx_mimetype:** The mime-type of the content being uploaded. This tells the OneLink® Proxy how to interpret the incoming information. The only supported types as of right now are the following: 
 
 > * **text/html**: This page will be parsed as a normal HTML page by the rules defined for the virtual host.
 >
@@ -121,7 +121,7 @@ Using your application code, you should create a POST request with the following
 > 
 > **Note:** any foreign mimetype not listed above will cause the OneLink API to respond with HTTP-205 and the original document untouched. The same thing will happen if the mimetype is not set.
 > 
-> **otx\_service:** *Optional.* *Defaults to “tx”*. Values are as follows:
+> **otx_service:** *Optional.* *Defaults to “tx”*. Values are as follows:
 >
 > * **tx:** Performs normal translation as defined for the virtual host.
 >
@@ -135,7 +135,7 @@ Using your application code, you should create a POST request with the following
 >
 > * **parse:** Parses and outputs segmentation and token logic (used primarily for debugging)
 > 
-> **otx\_content:** the content to be translated. Note that in the event that the content contains non-ASCII characters, the base encoding must be UTF-8 (not Windows-1252, nor ISO-8859). In order to be passed as POST data, the content must also be “form-url-encoding.” Most application frameworks will automatically form-encode data if they know you are sending a POST request.
+> **otx_content:** the content to be translated. Note that in the event that the content contains non-ASCII characters, the base encoding must be UTF-8 (not Windows-1252, nor ISO-8859). In order to be passed as POST data, the content must also be “form-url-encoding.” Most application frameworks will automatically form-encode data if they know you are sending a POST request.
 > 
 
 ## OneLink API Responses
@@ -175,9 +175,11 @@ The following response headers are included whenever the request includes **X-On
 **Sent to the OneLink API:**
 
 ```
-Host: es.acme.com
+Host: es-otx.onelink-poc.com'
 Content-Type: application/x-www-form-urlencoded
-Content-Length: 123 ***THiS DOES NOT SEEM RIGHT*** WE DON'T SEND THIS AND THERE IS NO Hello World TEXT EVEN THOUGH YOU CAN SEE THE TRANSLATION BELOW.
+Content-Length: 123 
+
+otx_account=otx,otxpass&otx_mimetype=text/plain&otx_service=tx&otx_content=Hello%20World
 ```
 **Received from the OneLink API:**
 
@@ -188,11 +190,19 @@ Content-Length: 12
 Encoding: utf8
 Hola Mundial
 ```
-For example: ***WE SHOULD USE THE TEST SERVER MENTIONED BELOW SO THIS REALLY WORKS***
+The following example shows how to send a request to the OneLink API via `curl`.
+
 ```
-% curl -k --header "host: es.acme.com" --request post
-'https://es.acme.com/OneLinkOTX/wfonline/' --data "otx\_mimetype=text/html&otx\_account=acme&otx\_service=smt&otx\_content=<html><head></head><body>Hello World</body></html>"
+% curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/htt=otx,otxpass&otx_service=smt&otx_content=Hello World" ; echo
+
 ```
+
+The expected result is 
+
+```
+¡hola Mundo
+```
+
 # Appendix: Code Samples
 
 The following examples show you some basic examples of the OneLink API in Python, Java, and PHP.
@@ -245,7 +255,7 @@ Rather than make separate calls for each segment you want to translate you can s
 A simple Curl test to the OneLink API Service:
 
 ```
-curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx\_mimetype=text/html&otx\_account=otx,otxpass&otx\_service=tx&otx\_content=<p>I am going for a long walk</p>' ; echo
+curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tx&otx_content=<p>I am going for a long walk</p>' ; echo
 ```
 This is expected to return the translated segment:
 ```
@@ -260,7 +270,7 @@ For testing we have added a global ‘otxtest’ tag to the OneLink translation 
 For example, the command passes JSON with 3 elements to the server. Because these are contained within an otxtest element it will translate:
 
 ```
-curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx\_mimetype=text/json&otx\_account=otx,otxpass&otx\_service=tx&otx\_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog", data3:"in the yard" }}' ; echo
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=tx&otx_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog", data3:"in the yard" }}' ; echo
 ```
 This is the expected response:
 ```
@@ -269,7 +279,7 @@ This is the expected response:
 The same is true for XML (Note modified mime type)
 
 ```
-curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx\_mimetype=text/xml&otx\_account=otx,otxpass&otx\_service=tx&otx\_content=<otxtest><foo>You have to learn the rules of the game.</foo><bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=tx&otx_content=<otxtest><foo>You have to learn the rules of the game.</foo><bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
 ```
 
 This is the expected result:
