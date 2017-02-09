@@ -1,6 +1,9 @@
 <!--
 Processing tips: 
 pandoc -f markdown -t json OneLink_API.md | runhaskell ./doInclude.hs | pandoc -f json -t markdown -o OneLink_API.md
+Generating PDF
+pandoc -f markdown --latex-engine=xelatex --template ~/tools/default.tex -V geometry:margin=.75in -V fontsize=11pt -V mainfont=NimbusSanL-Regu OneLink_API.md -o OneLink_API.pdf
+ 
 -->
 About this guide
 ================
@@ -8,11 +11,12 @@ About this guide
 This document describes OneLink® API. The API enables real-time querying
 of Translation Memory content so you can use it for other purposes —
 such as email content, browsers, and third-party products or data that
-may require translation. 
+may require translation.
 
-**Note**: this is a temporary location. 
+**Note**: this is a temporary location.
 
-This document is available on GitHub at [OneLink-API](https://github.com/RoasterBoy/OneLink-API). 
+This document is available on GitHub at
+[OneLink-API](https://github.com/RoasterBoy/OneLink-API).
 
 What is the OneLink API?
 ========================
@@ -311,47 +315,40 @@ Python example:
 
 ``` {include="example.py"}
 #!/usr/bin/env python
-
-# -*- coding: utf-8 -*- 
-# Import extensible library for opening URLs
+# -*- coding: utf-8 -*- # Import extensible library for opening URLs
 import urllib2, urllib
-
 # Segment for translation
-contentForTx  = "Acme Corp has the largest selection of dynamite and anvils on the market."
-
+contentForTx = "Acme Corp has the largest selection of dynamite and anvils on the market."
 # The hostname of the project that contains the TM and OTX account
-virtualHostName  = "es.acme.com"
-
+virtualHostName = "es-otx.onelink-poc.com"
 # The hostname of the server the project is contained on
-physicalHostName = "stagex1.onelink-translations.com"
-
+physicalHostName = "es-otx.onelink-poc.com"
 # Set the parameters of the request, encode with url encoding.
 params = urllib.urlencode({'otx_mimetype': 'text/html',
-                           'otx_account' : 'acme,acmePassW0rd',
-                           'otx_service' : 'tx',
-                           'otx_content' : contentForTx})
+ 'otx_account' : 'otx,otxpass', 'otx_service' : 'smt', 'otx_content' : contentForTx})
 # Set the host header
 headers = {"Host": virtualHostName}
-
 # Make the request object passing in the parameters and headers
-req = urllib2.Request(b:: Content for translation    : Acme Corp has the largest selection of dynamite and anvils on the market.
-:: Received translated content: Acme Corp tiene la mayor selecciC3n de dinamita y yunques en el mercado.
+req = urllib2.Request("https://"+physicalHostName+"/OneLinkOTX/", params, headers)
+# Execute the request
+response = urllib2.urlopen(req)
+# Read the response
+htmlData = response.read()
+print ":: Content for translation : "+contentForTx
+print ":: Received translated content: "+htmlData
 ```
 
 See [example.py](./example.py)
 
+Use the following command:
+
+    ./example.py 
+
 The expected result is:
 
-    python ./onelink.api.example.py
-
     :: Content for translation : Acme Corp has the largest selection of dynamite and anvils on the market.
-    :: Received translated content: Acme Corp tiene la selección más grande de la dinamita y de los yunques en el mercado.
+    :: Received translated content: Cumbre Corp tiene la más grande selección de dinamita y yunques en la mercado.
 
-<!--
-## Java Example:
-
-**Java example goes here**
--->
 PHP example:
 ------------
 
@@ -400,11 +397,12 @@ echo "\n translated:" . $result ."\n";
 
 See [example.php](./example.php)
 
+Usage: `php example.php "<p>I am going for a long walk</p>" smt`
+
 The expected result is:
 
-    $ php example.php "<p>I am going for a long walk</p>" tx
-       content:<p>I am going for a long walk</p>
-    translated:<p>Voy para una caminata larga</p>    
+        content:<p>I am going for a long walk</p>
+        translated:<p>Voy para una caminata larga</p>
 
 Appendix: OneLink API Testing
 =============================
@@ -422,7 +420,7 @@ you can send the server JSON or XML.
 
 A simple Curl test to the OneLink API Service:
 
-    curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tx&otx_content=<p>I am going for a long walk</p>' ; echo
+    curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=smt&otx_content="<p>I am going for a long walk</p>"'
 
 This is expected to return the translated segment:
 
@@ -442,18 +440,27 @@ translate the content inside it.
 For example, the command passes JSON with 3 elements to the server.
 Because these are contained within an otxtest element it will translate:
 
-    curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=tx&otx_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog", data3:"in the yard" }}' ; echo
+    curl -k --header 'Host:es-otx.onelink-poc.com'\
+    --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' \
+    --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=tx&\
+    otx_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog",\
+    data3:"in the yard" }}' ; echo
 
 This is the expected response:
 
-    { "otxtest": { "data1": "yo ver la gato", "data2": "persiguiendo la perro", "data3": "en la patio" } }
+    { "otxtest": { "data1": "veo el gato", "data2": "perseguimiento del perro", "data3": "en la yarda" } }
 
 The same is true for XML (Note modified mime type)
 
-    curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=tx&otx_content=<otxtest><foo>You have to learn the rules of the game.</foo><bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
+    curl -k --header 'Host:es-otx.onelink-poc.com'\
+    --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/'\
+    --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&\
+    otx_service=tx&otx_content=<otxtest>\
+    <foo>You have to learn the rules of the game.</foo>\
+    <bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
 
 This is the expected result:
 
-    <otxtest><foo>Usted tener a aprender la normas de la juego.</foo>
-    <bar>Y entonces usted tener a jugar mejor de nadie mÃ¡s.</bar>
-    </otxtest>
+    <otxtest>
+    <foo>Usted tiene que aprender las reglas del juego.</foo>
+    <bar>Y entonces usted tiene que jugar mejor que cualquier persona.</bar></otxtest>
