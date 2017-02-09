@@ -2,7 +2,7 @@
 Processing tips: 
 pandoc -f markdown -t json OneLink_API.md | runhaskell ./doInclude.hs | pandoc -f json -t markdown -o OneLink_API.md
 Generating PDF
-pandoc -f markdown --latex-engine=xelatex --template ~/tools/default.tex -V geometry:margin=.75in -V fontsize=11pt -V mainfont=NimbusSanL-Regu OneLink_API.md -o OneLink_API.pdf
+pandoc -f markdown --latex-engine=xelatex --template ~/tools/onedoc.latex -V geometry:margin=.75in -V fontsize=11pt -V mainfont=NimbusSanL-Regu OneLink_API.md -o OneLink_API.pdf
  
 -->
 About this guide
@@ -298,8 +298,12 @@ comma-delimited list of flags:
 The following example shows how to send a request to the OneLink API via
 `curl`.
 
-    % curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/htt=otx,otxpass&otx_service=smt&otx_content=Hello World" ; echo
+**Note**: some of the `curl` examples in this document exceed 80 characters. Be careful when uou are copying and pasting into your terminal window. Make sure that line continuation characters, if needed, are in place.
 
+```
+curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tx&otx_content=Hello World" ; echo
+
+```
 The expected result is
 
     ¡hola Mundo
