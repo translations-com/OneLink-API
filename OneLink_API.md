@@ -1,10 +1,3 @@
-<!--
-Processing tips: 
-pandoc -f markdown -t json OneLink_API.md | runhaskell ./doInclude.hs | pandoc -f json -t markdown -o OneLink_API.md
-Generating PDF
-pandoc -f markdown --latex-engine=xelatex --template ~/tools/onedoc.latex -V geometry:margin=.75in -V fontsize=11pt -V mainfont=NimbusSanL-Regu OneLink_API.md -o OneLink_API.pdf
- 
--->
 About this guide
 ================
 
@@ -12,11 +5,6 @@ This document describes OneLink® API. The API enables real-time querying
 of Translation Memory content so you can use it for other purposes —
 such as email content, browsers, and third-party products or data that
 may require translation.
-
-**Note**: this is a temporary location.
-
-This document is available on GitHub at
-[OneLink-API](https://github.com/RoasterBoy/OneLink-API).
 
 What is the OneLink API?
 ========================
