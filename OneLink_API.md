@@ -432,11 +432,11 @@ translate the content inside it.
 For example, the command passes JSON with 3 elements to the server.
 Because these are contained within an otxtest element it will translate:
 
-    curl -k --header 'Host:es-otx.onelink-poc.com'\
+    curl -k --header 'Host:es-otx.onelink-poc.com' \
     --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' \
     --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=tx&\
     otx_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog",\
-    data3:"in the yard" }}' ; echo
+    "data3":"in the yard" }}' ; echo
 
 This is the expected response:
 
