@@ -273,7 +273,7 @@ comma-delimited list of flags:
     Content-Type: application/x-www-form-urlencoded
     Content-Length: 123 
 
-    otx_account=otx,otxpass&otx_mimetype=text/plain&otx_service=tx&otx_content=Hello%20World
+    otx_account=otx,otxpass&otx_mimetype=text/plain&otx_service=wmt&otx_content=I%20speak%20Spanish
 
 **Received from the OneLink API:**
 
@@ -289,12 +289,12 @@ The following example shows how to send a request to the OneLink API via
 **Note**: some of the `curl` examples in this document exceed 80 characters. Be careful when uou are copying and pasting into your terminal window. Make sure that line continuation characters, if needed, are in place.
 
 ```
-curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tx&otx_content=Hello World" ; echo
+curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=wmt&otx_content=I speak Spanish" ; echo
 
 ```
 The expected result is
 
-    ¡hola Mundo
+    Hablo español
 
 Appendix: Code Samples
 ======================
@@ -317,7 +317,7 @@ virtualHostName = "es-otx.onelink-poc.com"
 physicalHostName = "es-otx.onelink-poc.com"
 # Set the parameters of the request, encode with url encoding.
 params = urllib.urlencode({'otx_mimetype': 'text/html',
- 'otx_account' : 'otx,otxpass', 'otx_service' : 'smt', 'otx_content' : contentForTx})
+ 'otx_account' : 'otx,otxpass', 'otx_service' : 'wmt', 'otx_content' : contentForTx})
 # Set the host header
 headers = {"Host": virtualHostName}
 # Make the request object passing in the parameters and headers
@@ -338,8 +338,8 @@ Use the following command:
 
 The expected result is:
 
-    :: Content for translation : Acme Corp has the largest selection of dynamite and anvils on the market.
-    :: Received translated content: Cumbre Corp tiene la más grande selección de dinamita y yunques en la mercado.
+    :: Content for translation : I speak Spanish.
+    :: Received translated content: Hablo español.
 
 PHP example:
 ------------
@@ -389,12 +389,12 @@ echo "\n translated:" . $result ."\n";
 
 See [example.php](./example.php)
 
-Usage: `php example.php "<p>I am going for a long walk</p>" smt`
+Usage: `php example.php "<p>I speak Spanish</p>" smt`
 
 The expected result is:
 
-        content:<p>I am going for a long walk</p>
-        translated:<p>Voy para una caminata larga</p>
+        content:<p>I speak Spanish</p>
+        translated:<p>Hablo español</p>
 
 Appendix: OneLink API Testing
 =============================
@@ -412,11 +412,11 @@ you can send the server JSON or XML.
 
 A simple Curl test to the OneLink API Service:
 
-    curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=smt&otx_content="<p>I am going for a long walk</p>"'
+    curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=wmt&otx_content="<p>I speak Spanish</p>"'
 
 This is expected to return the translated segment:
 
-    <p>Yo soy va para un largo caminar</p>
+    <p>Hablo español</p>
 
 You can also send several segments to the service for translation by
 using JSON or HTML
@@ -434,25 +434,19 @@ Because these are contained within an otxtest element it will translate:
 
     curl -k --header 'Host:es-otx.onelink-poc.com' \
     --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' \
-    --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=tx&\
-    otx_content={ otxtest: { "data1":"i see the cat","data2":"chasing the dog",\
-    "data3":"in the yard" }}' ; echo
+    --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=wmt&\
+    otx_content={ otxtest: { "data1":"I speak Spanish","data2":"I speak French",\
+    "data3":"I speak German" }}' ; echo
 
 This is the expected response:
 
-    { "otxtest": { "data1": "veo el gato", "data2": "perseguimiento del perro", "data3": "en la yarda" } }
+    { "otxtest": { "data1": "Hablo español", "data2": "Hablo francés", "data3": "Hablo alemán" } 
 
 The same is true for XML (Note modified mime type)
 
-    curl -k --header 'Host:es-otx.onelink-poc.com'\
-    --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/'\
-    --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&\
-    otx_service=tx&otx_content=<otxtest>\
-    <foo>You have to learn the rules of the game.</foo>\
-    <bar>And then you have to play better than anyone else.</bar></otxtest>' ; echo
+   curl -k --oc.com/OneLinkOTX' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=wmt&otx_content=<otxtest>
+   <foo>Spanish</foo><bar>French</bar></otxtest>' ; echo
 
 This is the expected result:
 
-    <otxtest>
-    <foo>Usted tiene que aprender las reglas del juego.</foo>
-    <bar>Y entonces usted tiene que jugar mejor que cualquier persona.</bar></otxtest>
+   <otxtest><foo>Español</foo><bar>Francés</bar></otxtest>
