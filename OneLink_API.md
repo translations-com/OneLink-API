@@ -449,4 +449,4 @@ The same is true for XML (Note modified mime type)
 
 This is the expected result:
 
-   '<otxtest><foo>Español</foo><bar>Francés</bar></otxtest>'
+   `<html><otxtest><foo>Español</foo><bar>Francés</bar></otxtest>`
