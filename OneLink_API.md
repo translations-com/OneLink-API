@@ -444,8 +444,7 @@ This is the expected response:
 
 The same is true for XML (Note modified mime type)
 
-   curl -k --oc.com/OneLinkOTX' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=wmt&otx_content=<otxtest>
-   <foo>Spanish</foo><bar>French</bar></otxtest>' ; echo
+    curl -k --oc.com/OneLinkOTX' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=wmt&otx_content=<otxtest>   <foo>Spanish</foo><bar>French</bar></otxtest>' ; echo
 
 This is the expected result:
 
