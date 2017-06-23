@@ -281,7 +281,7 @@ comma-delimited list of flags:
     Content-Type: text/plain
     Content-Length: 12
     Encoding: utf8
-    Hola Mundial
+    Hablo español
 
 The following example shows how to send a request to the OneLink API via
 `curl`.
