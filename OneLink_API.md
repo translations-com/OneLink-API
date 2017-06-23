@@ -357,7 +357,7 @@ $otx_mimetype = "text/html";
 
 // Fill from cli
 $otx_content =                 $argv[1];
-$otx_service = ( isset($argv[2])) ? $argv[2] : "smt";
+$otx_service = ( isset($argv[2])) ? $argv[2] : "wmt";
 
 // Setup data for http query 
 $url = 'https://es-otx.onelink-poc.com/OneLinkOTX/';
@@ -389,7 +389,7 @@ echo "\n translated:" . $result ."\n";
 
 See [example.php](./example.php)
 
-Usage: `php example.php "<p>I speak Spanish</p>" smt`
+Usage: `php example.php "<p>I speak Spanish</p>" wmt`
 
 The expected result is:
 
