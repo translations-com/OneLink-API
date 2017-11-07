@@ -1,4 +1,4 @@
-About this guide
+About This Guide
 ================
 
 This document describes OneLink® API. The API enables real-time querying
@@ -6,8 +6,9 @@ of Translation Memory content so you can use it for other purposes —
 such as email content, browsers, and third-party products or data that
 may require translation.
 
-What is the OneLink API?
-========================
+**NOTE:** This document is available online on GitHub at OneLink-API. 
+
+## What is the OneLink API? ##
 
 The OneLink Platform can be configured as a proxy service to provide a
 translated version of a website or invoked programmatically as an API to
@@ -17,23 +18,19 @@ together.
 This document shows how the API can be used to return translations of
 submitted content.
 
-For example,
+For example:
 
 1.  A Spanish page request is made by the browser.
 
-2.  The origin host responds by composing an English page, built using
-    normal processes (i.e., CMS, API, Static Page, etc.).
+2.  The origin host responds by composing an English page, built using normal processes (i.e., CMS, API, Static Page, etc.).
 
 3.  The composed page is sent to the OneLink API application code.
 
-4.  The OneLink API code makes the appropriate requests from Translation
-    Memory and the Parsing Engine to swap Spanish for English content.
+4.  The OneLink API code makes the appropriate requests from Translation Memory and the Parsing Engine to swap Spanish for English content.
 
-5.  The OneLink® Platform composes the Spanish page, and returns it to
-    the origin server.
+5.  The OneLink® Platform composes the Spanish page, and returns it to the origin server.
 
-6.  The origin server returns the Spanish page back to the browser that
-    requsted it.
+6.  The origin server returns the Spanish page back to the browser that requested it.
 
 This model achieves anonymity from the typical proxy relationship since
 it is not connected to the exchange between browser and server. The
@@ -43,6 +40,8 @@ client’s browser with no interim contact with a OneLink® proxy. Of
 course, to implement this you would host the OneLink® Platform directly
 inside your IT architecture. This is just one example, and you can use
 the API without hosting the platform yourself.
+
+\newpage
 
 Getting Started
 ===============
@@ -60,23 +59,17 @@ through to training and support.
 
 ### Examples:
 
--   You can translate selected content that can then be merged with your
-    customers' personal data. The customer data never leaves your site.
+  - You can translate selected content that can then be merged with your customers' personal data. The customer data never leaves your site.
 
--   You can translate internal emails.
+  - You can translate internal emails.
 
--   Use the API to translate selected portions of a page (instead of
-    running the whole website through the OneLink proxy service).
+  - Use the API to translate selected portions of a page (instead of running the whole website through the OneLink proxy service).
 
--   Build a translation interface to a custom CMS.
+  - Build a translation interface to a custom CMS.
 
--   Submit pre-published pages to the API. The pages are
-    translated completely. When publishing the English content (and
-    using the OneLink proxy), the target language sites will already
-    have the translated content.
+  - Submit pre-published pages to the API. The pages are translated completely. When publishing the English content (and using the OneLink proxy), the target language sites will already have the translated content.
 
--   Capture unpublished content for translation by submitting it to
-    the API.
+  - Capture unpublished content for translation by submitting it to the API.
 
 Solution
 --------
@@ -92,19 +85,17 @@ that platform to fulfill our clients’ needs, requirements, and goals.
 The OneLink® API leverages the following components of the OneLink®
 Platform:
 
--   Real-time parsing of web related mime-types (HTML, XML, JS,
-    JSON, etc.)
+  - Real-time parsing of web related mime-types (HTML, XML, JS, JSON, etc.)
 
--   Real-time translation memory (TM) lookups for segment/sentence-level
-    replacements from source to target language
+  - Real-time translation memory (TM) lookups for segment/sentence-level replacements from source to target language
 
--   Ability to mark-up source content with OneLink® classes to prevent
-    certain content from being translated
+  - Ability to mark-up source content with OneLink® classes to prevent certain content from being translated
 
--   Ability to capture segments that are missing from the TM and/or
-    backfill with real-time machine translation
+  - Ability to capture segments that are missing from the TM and/or backfill with real-time machine translation
 
--   Sub-second response time
+  - Sub-second response time
+
+\newpage
 
 About the OneLink Proxy
 -----------------------
@@ -118,26 +109,29 @@ applying translation on-the-fly.
 The proxy server sits in between the end-user’s browser and the client’s
 servers.
 
-1.  The user visits es.acme.com. The user’s browser sends a request that
-    will go to the OL proxy server.
+1.  The user visits es.acme.com. The user’s browser sends a request that will go to the OL proxy server.
 
-2.  The OL proxy server in turn passes a request to the origin server
-    requesting the source file.
+2.  The OL proxy server in turn passes a request to the origin server requesting the source file.
 
 3.  The origin server responds with the requested file.
 
 4.  The OL server “localizes” the file.
 
-5.  The OL server responds to the browser with the localized version of
-    the requested file.
+5.  The OL server responds to the browser with the localized version of the requested file.
+
+<center>
 
 ![OneLink Proxy Workflow](./OL-Proxy-Workflow.png)
+
+</center>
 
 Note that steps 3 through 5 are not “seen” by the end-user’s browser.
 Rather, the browser is requesting a file from the OL server and the OL
 server is responding with that file just as any other server would.
 OneLink steps happen with almost zero negative effect on performance for
 the end-user.
+
+\newpage
 
 OneLink API Implementation
 ==========================
@@ -150,78 +144,60 @@ parameters that are specified on the next page. Note that you will need
 to understand where the OneLink API server lives. If the OneLink API
 server is installed on your LAN, the request may look like this:
 
-`https://10.20.30.40/OneLinkOTX/page/requesting/data.html`
+
+    https://10.20.30.40/OneLinkOTX/page/requesting/data.html
+
 
 If the OneLink API server is installed in one of our colocation
 facilities, the request may look like this:
 
-`https://es.acme.com/OneLinkOTX/page/requesting/data.html`
+    https://es.acme.com/OneLinkOTX/page/requesting/data.html
 
 Using your application code, you should create a POST request with the
 following request headers and post parameters:
 
 ### Required Request Headers
 
-> **Host:** *your-virtual-host* (see below)
->
-> **Content-Type:** application/x-www-form-url-encoded (all POST
-> requests have this header)
+**Host:** *your-virtual-host* (see below)
+
+**Content-Type:** application/x-www-form-url-encoded (all POST requests have this header)
 
 ### Required Post Parameters
 
-> **otx\_account**=account number, account password. This contains the
-> account number and password for the OneLink API.
->
-> **otx\_mimetype:** The mime-type of the content being uploaded. This
-> tells the OneLink® Proxy how to interpret the incoming information.
-> The only supported types as of right now are the following:
+- **otx\_account**=account number, account password. This contains the
+account number and password for the OneLink API.
 
-> -   **text/html**: This page will be parsed as a normal HTML page by
->     the rules defined for the virtual host.
->
-> -   **text/xml**: This data will be parsed normally as XML content
->     following the logic defined for the virtual host.
->
-> -   **text/javascript**: Incoming data will have our custom JavaScript
->     parser applied.
->
-> -   **text/json** or **text/plain**: The JSON data will be filtered
->     through our custom JSON parser logic.
->
-> -   **text/segment** or **application/json**: This refers to a single
->     segment of text that will not be parsed with rules, it will only
->     be translated.
->
-> **Note:** any foreign mimetype not listed above will cause the OneLink
-> API to respond with HTTP-205 and the original document untouched. The
-> same thing will happen if the mimetype is not set.
->
-> **otx\_service:** *Optional.* *Defaults to “tx”*. Values are as
-> follows:
->
-> -   **tx:** Performs normal translation as defined for the
->     virtual host.
->
-> -   **smt:** Performs SMT (simple machine translation).
->
-> -   **wmt:** Performs WebMT (WorldLingo machine translation).
->
-> -   **tx+smt:** Performs normal translation, but any segments not
->     found in the TM are translated using simple machine translation
->
-> -   **tx+wmt:** Performs normal translation, but any segments not
->     found in the TM are translated using WorldLingo machine
->     translation
->
-> -   **parse:** Parses and outputs segmentation and token logic (used
->     primarily for debugging)
->
-> **otx\_content:** the content to be translated. Note that in the event
-> that the content contains non-ASCII characters, the base encoding must
-> be UTF-8 (not Windows-1252, nor ISO-8859). In order to be passed as
-> POST data, the content must also be “form-url-encoding.” Most
-> application frameworks will automatically form-encode data if they
-> know you are sending a POST request.
+- **otx\_mimetype:** The mime-type of the content being uploaded. This
+tells the OneLink® Proxy how to interpret the incoming information.
+The only supported types as of right now are the following:
+
+     - **text/html**: This page will be parsed as a normal HTML page by the rules defined for the virtual host.
+
+     - **text/xml**: This data will be parsed normally as XML content following the logic defined for the virtual host.
+
+     - **text/javascript** or **application/javascript**: Incoming data will have our custom JavaScript parser applied.
+
+     - **text/json** or **application/json**: The JSON data will be filtered through our custom JSON parser logic.
+
+     - **text/segment** or **text/plain**: This refers to a single segment of text that will not be parsed with rules, it will only be translated.
+
+    **NOTE:** Specifying any foreign mimetype not listed above will cause the OneLink API to respond with an HTTP-205 status and leave the original document untouched. The same thing will happen if the mimetype is not set.
+
+- **otx\_service:** *Optional.* *Defaults to “tx”*. Values are as follows:
+
+     - **tx:** Performs normal translation as defined for the virtual host.
+
+     - **smt:** Performs SMT (simple machine translation).
+
+     - **wmt:** Performs WebMT (WorldLingo machine translation).
+
+     - **tx+smt:** Performs normal translation, but any segments not found in the TM are translated using simple machine translation. **CAUTION:** You need to substitute '+' with '%2B' if tx+smt is specified in a `curl` command.
+
+     - **tx+wmt:** Performs normal translation, but any segments not found in the TM are translated using WorldLingo machine translation. **CAUTION:** You need to substitute '+' with '%2B' if tx+wmt is specified in a `curl` command.
+
+     - **parse:** Parses and outputs segmentation and token logic (used primarily for debugging)
+
+- **otx\_content:** the content to be translated. Note that in the event that the content contains non-ASCII characters, the base encoding must be UTF-8 (not Windows-1252, nor ISO-8859). In order to be passed as POST data, the content must also be “form-url-encoding.” Most application frameworks will automatically form-encode data if they know you are sending a POST request.
 
 OneLink API Responses
 ---------------------
@@ -229,172 +205,179 @@ OneLink API Responses
 The response is a standard HTTP response and the status code is any one
 of the following:
 
-> **HTTP-200:** Success
->
-> **HTTP-205:** The mime type not supported, original document is
-> returned untouched
->
-> **HTTP-401:** Protocol error: missing or malformed required header
->
-> **HTTP-402:** Feature is not enabled for specified host
->
-> **HTTP-403:** Invalid account number or invalid account password
->
-> **HTTP-404:** Translation Memory (TM) is not started or service is not
-> available
->
-> **HTTP-405:** Attempted to use HTTP instead of HTTPS from a public IP
-> address
+- **HTTP-200:** Success
 
-Following an HTTP-200 response, the rest of the response header will
-look like the following:
+- **HTTP-205:** The mime type not supported, original document is returned untouched.
 
-> **Content-Type:** The mime type of the response (usually the same as
-> the mime type that came in)
->
-> **Content-Length:** Number of bytes in the translated document
->
-> **Encoding:** gzip, etc. (based on site configuration rules)
+- **HTTP-401:** Protocol error: missing or malformed required header
 
-The following response headers are included whenever the request
-includes **X-OneLink-Headers** and “**translation”** is in the
-comma-delimited list of flags:
+- **HTTP-402:** Feature is not enabled for specified host
 
-> **X-OneLinkSegments:** *nn* (the number of translatable text segments
-> in the content)
->
-> **X-OneLinkTranslated:** *nn* (the number of text segments translated)
->
-> **X-OneLinkTxPercent:** *nn* (percentage of text segments translated)
+- **HTTP-403:** Invalid account number or invalid account password
+
+- **HTTP-404:** Translation Memory (TM) is not started or service is not available
+
+- **HTTP-405:** Attempted to use HTTP instead of HTTPS from a public IP address
+
+Following an HTTP-200 response, the rest of the response header will look like the following:
+
+- **Content-Type:** The mime type of the response (usually the same as the mime type that came in)
+
+- **Content-Length:** Number of bytes in the translated document
+
+- **Encoding:** gzip, etc. (based on site configuration rules)
+
+The following response headers are included whenever the request includes **X-OneLink-Headers** and “**translation”** is in the comma-delimited list of flags:
+
+- **X-OneLinkSegments:** *nn* (the number of translatable text segments in the content)
+
+- **X-OneLinkTranslated:** *nn* (the number of text segments translated)
+
+- **X-OneLinkTxPercent:** *nn* (percentage of text segments translated)
 
 **Sent to the OneLink API:**
 
-    Host: es-otx.onelink-poc.com'
-    Content-Type: application/x-www-form-urlencoded
-    Content-Length: 123 
+```java
+Host: es-otx.onelink-poc.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 123
+```
 
-    otx_account=otx,otxpass&otx_mimetype=text/plain&otx_service=wmt&otx_content=I%20speak%20Spanish
+```java
+otx_account=otx,otxpass&otx_mimetype=text/plain&otx_service=wmt&otx_content=I%20speak%20Spanish
+```
 
 **Received from the OneLink API:**
 
-    HTTP/1.1 200 OK
-    Content-Type: text/plain
-    Content-Length: 12
-    Encoding: utf8
-    Hablo español
-
-The following example shows how to send a request to the OneLink API via
-`curl`.
-
-**Note**: some of the `curl` examples in this document exceed 80 characters. Be careful when uou are copying and pasting into your terminal window. Make sure that line continuation characters, if needed, are in place.
-
+```java
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 12
+Encoding: utf8
+Hablo español
 ```
-curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=wmt&otx_content=I speak Spanish" ; echo
 
+The following example shows how to send a request to the OneLink API via `curl`.
+
+**NOTE:** some of the `curl` examples in this document exceed 80 characters. Be careful when you are copying and pasting into your terminal window. Make sure that line continuation characters, if needed, are in place.
+
+```java
+curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tm%2Bwmt&otx_content=I speak Spanish" ; echo
 ```
+
 The expected result is
 
-    Hablo español
+```java
+Hablo español
+```
 
 Appendix: Code Samples
 ======================
 
 The following examples show you some basic examples of the OneLink API
-in Python, Java, and PHP.
+in Python and PHP.
 
 Python example:
 ---------------
 
-``` {include="example.py"}
-#!/usr/bin/env python
-# -*- coding: utf-8 -*- # Import extensible library for opening URLs
-import urllib2, urllib
-# Segment for translation
-contentForTx = "Acme Corp has the largest selection of dynamite and anvils on the market."
-# The hostname of the project that contains the TM and OTX account
-virtualHostName = "es-otx.onelink-poc.com"
-# The hostname of the server the project is contained on
-physicalHostName = "es-otx.onelink-poc.com"
-# Set the parameters of the request, encode with url encoding.
-params = urllib.urlencode({'otx_mimetype': 'text/html',
- 'otx_account' : 'otx,otxpass', 'otx_service' : 'wmt', 'otx_content' : contentForTx})
-# Set the host header
-headers = {"Host": virtualHostName}
-# Make the request object passing in the parameters and headers
-req = urllib2.Request("https://"+physicalHostName+"/OneLinkOTX/", params, headers)
-# Execute the request
-response = urllib2.urlopen(req)
-# Read the response
-htmlData = response.read()
-print ":: Content for translation : "+contentForTx
-print ":: Received translated content: "+htmlData
+
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*- # Import extensible library for opening URLs
+    import urllib2, urllib
+    # Segment for translation
+    contentForTx = "Acme Corp has the largest selection of dynamite and anvils on the market."
+    # The hostname of the project that contains the TM and OTX account
+    virtualHostName = "es-otx.onelink-poc.com"
+    # The hostname of the server the project is contained on
+    physicalHostName = "es-otx.onelink-poc.com"
+    # Set the parameters of the request, encode with url encoding.
+    params = urllib.urlencode({'otx_mimetype': 'text/html',
+    'otx_account' : 'otx,otxpass', 'otx_service' : 'wmt', 'otx_content' : contentForTx})
+    # Set the host header
+    headers = {"Host": virtualHostName}
+    # Make the request object passing in the parameters and headers
+    req = urllib2.Request("https://"+physicalHostName+"/OneLinkOTX/", params, headers)
+    # Execute the request
+    response = urllib2.urlopen(req)
+    # Read the response
+    htmlData = response.read()
+    print ":: Content for translation : "+contentForTx
+    print ":: Received translated content: "+htmlData
+
+**NOTE:** See [example.py](./example.py) to view the actual code.
+
+Use the following command to run the example:
+
+```java
+./example.py 
 ```
-
-See [example.py](./example.py)
-
-Use the following command:
-
-    ./example.py 
 
 The expected result is:
 
-    :: Content for translation : I speak Spanish.
-    :: Received translated content: Hablo español.
+```java
+Content for translation : Acme Corp has the largest selection of dynamite and anvils on the market.
+Received translated content: Cumbre Corp tiene la más grande selección de dinamita y yunques en la mercado.
+```
 
 PHP example:
 ------------
 
-``` {include="example.php"}
-<?php
-if($argc<2){
+    <?php
+    if($argc<2){
     echo "\n usage: php getOTX.php content service\n";
     exit;
-}
+    }
 
-// Setup Defaults
-$otx_account = 'otx,otxpass';
-$otx_mimetype = "text/html";
+    // Setup Defaults
+    $otx_account = 'otx,otxpass';
+    $otx_mimetype = "text/html";
 
-// Fill from cli
-$otx_content =                 $argv[1];
-$otx_service = ( isset($argv[2])) ? $argv[2] : "wmt";
+    // Fill from cli
+    $otx_content =                 $argv[1];
+    $otx_service = ( isset($argv[2])) ? $argv[2] : "wmt";
 
-// Setup data for http query 
-$url = 'https://es-otx.onelink-poc.com/OneLinkOTX/';
-$data = array(
+    // Setup data for http query 
+    $url = 'https://es-otx.onelink-poc.com/OneLinkOTX/';
+    $data = array(
                                 'otx_account' => $otx_account
                                 ,'otx_service' => $otx_service
                                 ,'otx_mimetype' => $otx_mimetype
                                 ,'otx_content' => $otx_content
                                                                 
-);
-// Setup stream options
-$options = array(
+    );
+    // Setup stream options
+    $options = array(
     'http' => array(
         'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
         'method'  => 'POST',
         'content' => http_build_query($data),
-    ),
-);
+        ),
+    );
 
-// Create stream , get contents 
-$context  = stream_context_create($options);
-$result = file_get_contents($url, false, $context);
+    // Create stream , get contents 
+    $context  = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
 
-// Results
-echo "\n    content:" . $otx_content;
-echo "\n translated:" . $result ."\n";
-?>
+    // Results
+    echo "\n    content:" . $otx_content;
+    echo "\n translated:" . $result ."\n";
+    ?>
+
+
+**NOTE:** See [example.php](./example.php) to view the actual code.
+
+Usage: 
+
+```java
+php example.php "<p>I speak Spanish</p>" wmt
 ```
-
-See [example.php](./example.php)
-
-Usage: `php example.php "<p>I speak Spanish</p>" wmt`
 
 The expected result is:
 
-        content:<p>I speak Spanish</p>
-        translated:<p>Hablo español</p>
+```java
+content:<p>I speak Spanish</p>
+translated:<p>Hablo español</p>
+```
 
 Appendix: OneLink API Testing
 =============================
@@ -412,40 +395,40 @@ you can send the server JSON or XML.
 
 A simple Curl test to the OneLink API Service:
 
-    curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=wmt&otx_content="<p>I speak Spanish</p>"'
+```java
+curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=wmt&otx_content="<p>I am going by the long road.</p>"'
+```
 
 This is expected to return the translated segment:
 
-    <p>Hablo español</p>
+```java
+<p>Voy por el camino largo.</p>
+```
 
-You can also send several segments to the service for translation by
-using JSON or HTML
+You can also send several segments to the service for translation by using JSON or HTML. In this case the server must be configured to translate specific data. This is done because most servers use JSON and XML to transmit not only translatable segments but code and tag information.
 
-In this case the server must be configured to translate specific data.
-This is done because most servers use JSON and XML to transmit not only
-translatable segments but code and tag information.
+For testing we have added a global ‘otxtest’ tag to the OneLink translation stack. Anytime it finds this in the tag stack, it will translate the content inside it.
 
-For testing we have added a global ‘otxtest’ tag to the OneLink
-translation stack. Anytime it finds this in the tag stack, it will
-translate the content inside it.
+For example, suppose a curl command is used to pass JSON data with 3 elements to the server: 
 
-For example, the command passes JSON with 3 elements to the server.
-Because these are contained within an otxtest element it will translate:
+```java
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=wmt&otx_content={ otxtest: { "data1":"I speak Spanish","data2":"I speak French",**"data3":"I speak German" }}' ; echo
+```
 
-    curl -k --header 'Host:es-otx.onelink-poc.com' \
-    --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' \
-    --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=wmt&\
-    otx_content={ otxtest: { "data1":"I speak Spanish","data2":"I speak French",\
-    "data3":"I speak German" }}' ; echo
+Since these elements are contained within an otxtest element they will be translated as follows:
 
-This is the expected response:
-
-    { "otxtest": { "data1": "Hablo español", "data2": "Hablo francés", "data3": "Hablo alemán" } 
+```java
+{ "otxtest": { "data1": "Hablo español", "data2": "Hablo francés", "data3": "Hablo alemán" } 
+```
 
 The same is true for XML (Note modified mime type)
-
-    curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=wmt&otx_content=<otxtest><foo>Spanish</foo><bar>French</bar></otxtest>'; echo
+    
+```java
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=tm%2Bsmt&otx_content=<otxtest><foo>Spanish</foo><bar>French</bar></otxtest>'; echo
+```
 
 This is the expected result:
 
-   `<otxtest><foo>Español</foo><bar>Francés</bar></otxtest>`
+```java
+<otxtest><foo>Español</foo><bar>Francés</bar></otxtest>
+```
