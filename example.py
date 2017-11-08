@@ -9,7 +9,7 @@ virtualHostName = "es-otx.onelink-poc.com"
 physicalHostName = "es-otx.onelink-poc.com"
 # Set the parameters of the request, encode with url encoding.
 params = urllib.urlencode({'otx_mimetype': 'text/html',
- 'otx_account' : 'otx,otxpass', 'otx_service' : 'smt', 'otx_content' : contentForTx})
+ 'otx_account' : 'otx,otxpass', 'otx_service' : 'wmt', 'otx_content' : contentForTx})
 # Set the host header
 headers = {"Host": virtualHostName}
 # Make the request object passing in the parameters and headers
