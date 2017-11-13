@@ -179,7 +179,7 @@ The only supported types as of right now are the following:
 
      - **text/json** or **application/json**: The JSON data will be filtered through our custom JSON parser logic.
 
-     - **text/segment** or **text/plain**: This refers to a single segment of text that will not be parsed with rules, it will only be translated.
+     - **text/segment**: This refers to a single segment of text that will not be parsed with rules, it will only be translated.
 
     **NOTE:** Specifying any foreign mimetype not listed above will cause the OneLink API to respond with an HTTP-205 status and leave the original document untouched. The same thing will happen if the mimetype is not set.
 
@@ -244,14 +244,14 @@ Content-Length: 123
 ```
 
 ```java
-otx_account=otx,otxpass&otx_mimetype=text/plain&otx_service=wmt&otx_content=I%20speak%20Spanish
+otx_account=otx,otxpass&otx_mimetype=text/segment&otx_service=wmt&otx_content=I%20speak%20Spanish
 ```
 
 **Received from the OneLink API:**
 
 ```java
 HTTP/1.1 200 OK
-Content-Type: text/plain
+Content-Type: text/segment
 Content-Length: 12
 Encoding: utf8
 Hablo español
