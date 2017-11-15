@@ -179,7 +179,7 @@ The only supported types as of right now are the following:
 
      - **text/json** or **application/json**: The JSON data will be filtered through our custom JSON parser logic.
 
-     - **text/segment**: This refers to a single segment of text that will not be parsed with rules, it will only be translated.
+     - **text/segment**: This data will be parsed into segments and translated.
 
     **NOTE:** Specifying any foreign mimetype not listed above will cause the OneLink API to respond with an HTTP-205 status and leave the original document untouched. The same thing will happen if the mimetype is not set.
 
