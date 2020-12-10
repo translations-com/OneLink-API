@@ -262,7 +262,7 @@ The following example shows how to send a request to the OneLink API via `curl`.
 **NOTE:** some of the `curl` examples in this document exceed 80 characters. Be careful when you are copying and pasting into your terminal window. Make sure that line continuation characters, if needed, are in place.
 
 ```java
-curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tm%2Bwmt&otx_content=I speak Spanish" ; echo
+curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tm&otx_content=I speak Spanish" ; echo
 ```
 
 The expected result is
