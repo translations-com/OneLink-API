@@ -244,7 +244,7 @@ Content-Length: 123
 ```
 
 ```java
-otx_account=otx,otxpass&otx_mimetype=text/segment&otx_service=wmt&otx_content=I%20speak%20Spanish
+otx_account=otx,otxpass&otx_mimetype=text/segment&otx_service=tx&otx_content=I%20speak%20Spanish
 ```
 
 **Received from the OneLink API:**
@@ -252,7 +252,7 @@ otx_account=otx,otxpass&otx_mimetype=text/segment&otx_service=wmt&otx_content=I%
 ```java
 HTTP/1.1 200 OK
 Content-Type: text/segment
-Content-Length: 12
+Content-Length: 13
 Encoding: utf8
 Hablo español
 ```
@@ -262,7 +262,7 @@ The following example shows how to send a request to the OneLink API via `curl`.
 **NOTE:** some of the `curl` examples in this document exceed 80 characters. Be careful when you are copying and pasting into your terminal window. Make sure that line continuation characters, if needed, are in place.
 
 ```java
-curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tm&otx_content=I speak Spanish" ; echo
+curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data "otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tx&otx_content=I speak Spanish" ; echo
 ```
 
 The expected result is
@@ -396,13 +396,13 @@ you can send the server JSON or XML.
 A simple Curl test to the OneLink API Service:
 
 ```java
-curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=wmt&otx_content="<p>I am going by the long road.</p>"'
+curl -k --header 'Host: es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/html&otx_account=otx,otxpass&otx_service=tx&otx_content="<p>I am going by the long road.</p>"'
 ```
 
 This is expected to return the translated segment:
 
 ```java
-<p>Voy por el camino largo.</p>
+<p>Yo soy va por la largo carretera.</p>
 ```
 
 You can also send several segments to the service for translation by using JSON or HTML. In this case the server must be configured to translate specific data. This is done because most servers use JSON and XML to transmit not only translatable segments but code and tag information.
