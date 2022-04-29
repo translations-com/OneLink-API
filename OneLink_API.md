@@ -412,7 +412,7 @@ For testing we have added a global ‘otxtest’ tag to the OneLink translation 
 For example, suppose a curl command is used to pass JSON data with 3 elements to the server: 
 
 ```java
-curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=wmt&otx_content={ otxtest: { "data1":"I speak Spanish","data2":"I speak French",**"data3":"I speak German" }}' ; echo
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX/' --data 'otx_mimetype=text/json&otx_account=otx,otxpass&otx_service=tx&otx_content={ otxtest: { "data1":"I speak Spanish","data2":"I speak French",**"data3":"I speak German" }}' ; echo
 ```
 
 Since these elements are contained within an otxtest element they will be translated as follows:
@@ -424,7 +424,7 @@ Since these elements are contained within an otxtest element they will be transl
 The same is true for XML (Note modified mime type)
     
 ```java
-curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=tm%2Bsmt&otx_content=<otxtest><foo>Spanish</foo><bar>French</bar></otxtest>'; echo
+curl -k --header 'Host:es-otx.onelink-poc.com' --request POST 'https://es-otx.onelink-poc.com/OneLinkOTX' --data 'otx_mimetype=text/xml&otx_account=otx,otxpass&otx_service=tx&otx_content=<otxtest><foo>Spanish</foo><bar>French</bar></otxtest>'; echo
 ```
 
 This is the expected result:
